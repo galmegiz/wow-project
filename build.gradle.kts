@@ -28,6 +28,11 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	implementation("org.slf4j:slf4j-api:2.0.7")  // SLF4J API
+	implementation("ch.qos.logback:logback-classic:1.4.7") // Logback (SLF4J 구현체)
+
+	implementation("org.springframework.boot:spring-boot-starter-cache")
+	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8") // Fast caching
 }
 
 kotlin {

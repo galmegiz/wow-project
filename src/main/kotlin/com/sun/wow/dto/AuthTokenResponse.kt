@@ -1,4 +1,4 @@
-package com.sun.wow.service
+package com.sun.wow.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
