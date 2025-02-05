@@ -29,7 +29,6 @@ class BlizzardOauthService(
     /**
      * Access tokens last for 24 hours.
      */
-    @Cacheable("accessTokenCache")
     fun getToken(): AuthTokenResponse {
         val currentToken = cachedToken
         if(currentToken != null && System.currentTimeMillis() < cacheExpireTime) {
