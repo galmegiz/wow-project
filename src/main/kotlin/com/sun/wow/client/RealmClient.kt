@@ -1,4 +1,4 @@
-package com.sun.wow.service
+package com.sun.wow.client
 
 import com.sun.wow.dto.AuthTokenResponse
 import com.sun.wow.dto.Realm
@@ -11,15 +11,15 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.exchange
 
 @Service
-class RealmService(
+class RealmClient(
     private val restTemplate: RestTemplate,
-    private val blizzardOauthService: BlizzardOauthService,
+    private val blizzardOauthClient: BlizzardOauthClient,
     @Value("\${blizzard.url.wow-realm}")
     private val realmUrl: String
 ) {
 
     fun getAllRealm(): WowRealmResponse {
-        val token: AuthTokenResponse = blizzardOauthService.getToken()
+        val token: AuthTokenResponse = blizzardOauthClient.getToken()
         val headers: HttpHeaders = HttpHeaders().also {
             it.set("Authorization", "Bearer ${token.accessToken}")
         }

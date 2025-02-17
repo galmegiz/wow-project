@@ -1,15 +1,13 @@
-package com.sun.wow.service
+package com.sun.wow.client
 
 import com.sun.wow.dto.AuthTokenResponse
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.cache.CacheManager
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.*
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
 @Service
-class BlizzardOauthService(
+class BlizzardOauthClient(
     @Value("\${blizzard.client-id}")
     private val clientId: String,
     @Value("\${blizzard.client-secret}")
