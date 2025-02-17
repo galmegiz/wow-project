@@ -1,6 +1,6 @@
 package com.sun.wow.client
 
-import com.sun.wow.dto.AuthTokenResponse
+import com.sun.wow.client.dto.AuthTokenResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*
 import org.springframework.stereotype.Service

@@ -1,6 +1,6 @@
 package com.sun.wow
 
-import com.sun.wow.dto.AuthTokenResponse
+import com.sun.wow.client.dto.AuthTokenResponse
 import com.sun.wow.client.AuctionClient
 import com.sun.wow.client.BlizzardOauthClient
 import com.sun.wow.client.RealmClient

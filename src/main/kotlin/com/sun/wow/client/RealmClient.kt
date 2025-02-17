@@ -1,8 +1,8 @@
 package com.sun.wow.client
 
-import com.sun.wow.dto.AuthTokenResponse
-import com.sun.wow.dto.Realm
-import com.sun.wow.dto.WowRealmResponse
+import com.sun.wow.client.dto.AuthTokenResponse
+import com.sun.wow.client.dto.Realm
+import com.sun.wow.client.dto.WowRealmResponse
 import ko_KR
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*

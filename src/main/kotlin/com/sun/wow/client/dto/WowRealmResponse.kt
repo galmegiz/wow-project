@@ -1,4 +1,4 @@
-package com.sun.wow.dto
+package com.sun.wow.client.dto
 
 data class WowRealmResponse(
     val realms: List<Realm>

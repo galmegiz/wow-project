@@ -1,4 +1,4 @@
-package com.sun.wow.dto
+package com.sun.wow.client.dto
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
