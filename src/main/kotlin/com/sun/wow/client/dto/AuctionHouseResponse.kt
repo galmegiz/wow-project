@@ -6,7 +6,19 @@ import com.sun.wow.constant.Copper
 
 data class AuctionHouseResponse(
     val auctions: List<Auction>
-)
+) {
+    companion object {
+        val NOT_MODIFIED = AuctionHouseResponse(emptyList())
+    }
+}
+
+data class CommodityAuctionHouseResponse(
+    val auctions: List<CommodityAuction>
+) {
+    companion object {
+        val NOT_MODIFIED = CommodityAuctionHouseResponse(emptyList())
+    }
+}
 
 data class Auction(
     val id: Long,
@@ -14,12 +26,21 @@ data class Auction(
     val buyout: Copper, // 즉시구매가, copper 기준
     val quantity: Int, // 수량
     @get:JsonProperty("time_left")
-    val timeLeft: String? // 경매 남은 시간
+    val timeLeft: String // 경매 남은 시간
+)
+
+data class CommodityAuction(
+    val id: Long,
+    val item: CommodityAuctionItem,
+    val quantity: Int,
+    @get:JsonProperty("unit_price")
+    val unitPrice: Copper,
+    @get:JsonProperty("time_left")
+    val timeLeft: String
 )
 
 sealed class AuctionItem{
     abstract val id: Long
-    abstract val modifiers: List<Modifier>
 
     companion object {
         @JsonCreator
@@ -56,14 +77,14 @@ sealed class AuctionItem{
 
 data class RegularAuctionItem(
     override val id: Long,
-    override val modifiers: List<Modifier>,
+    val modifiers: List<Modifier>,
     @JsonProperty("bonus_list")
     val bonusList: List<Int> = listOf(), // 아이템 보너스 id(소켓, 부가효과등)
 ): AuctionItem()
 
 data class PetAuctionItem(
     override val id: Long,
-    override val modifiers: List<Modifier>,
+    val modifiers: List<Modifier>,
     @JsonProperty("pet_breed_id")
     val petBreedId: Int,
     @JsonProperty("pet_level")
@@ -73,6 +94,10 @@ data class PetAuctionItem(
     @JsonProperty("pet_species_id")
     val petSpeciesId: Int,
 ): AuctionItem()
+
+data class CommodityAuctionItem(
+    val id: Long
+)
 
 data class Modifier(
     val type: Int,

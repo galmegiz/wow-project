@@ -5,9 +5,11 @@ import com.sun.wow.client.AuctionClient
 import com.sun.wow.client.BlizzardOauthClient
 import com.sun.wow.client.RealmClient
 import com.sun.wow.client.WowTokenClient
+import com.sun.wow.client.dto.CommodityAuctionHouseResponse
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import kotlin.test.assertEquals
 
 @SpringBootTest
 class WowApplicationTests {
@@ -46,4 +48,12 @@ class WowApplicationTests {
 		println(auctions.auctions.first())
 	}
 
+	@Test
+	fun commodityAuctionTest() {
+		val auctions = auctionClient.getCommodityAuctionItems()
+		val auction2 = auctionClient.getCommodityAuctionItems()
+		println(auctions.auctions.first())
+		assertEquals(auction2, CommodityAuctionHouseResponse.NOT_MODIFIED)
+		println(auction2)
+	}
 }
