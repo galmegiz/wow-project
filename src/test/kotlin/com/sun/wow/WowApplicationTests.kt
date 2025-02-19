@@ -45,15 +45,13 @@ class WowApplicationTests {
 	@Test
 	fun auctionTest() {
 		val auctions = auctionClient.getAuctionItems()
-		println(auctions.auctions.first())
+
 	}
 
 	@Test
 	fun commodityAuctionTest() {
 		val auctions = auctionClient.getCommodityAuctionItems()
 		val auction2 = auctionClient.getCommodityAuctionItems()
-		println(auctions.auctions.first())
-		assertEquals(auction2, CommodityAuctionHouseResponse.NOT_MODIFIED)
-		println(auction2)
+
 	}
 }

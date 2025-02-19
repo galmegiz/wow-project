@@ -3,11 +3,14 @@ package com.sun.wow.client
 import com.sun.wow.client.dto.AuctionHouseResponse
 import com.sun.wow.client.dto.AuthTokenResponse
 import com.sun.wow.client.dto.CommodityAuctionHouseResponse
+import com.sun.wow.entity.Auction
+import com.sun.wow.util.convertToLocalDateTime
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.exchange
+import java.time.LocalDateTime
 
 @Service
 class AuctionClient(
@@ -21,7 +24,7 @@ class AuctionClient(
     private var commodityLastModified: String? = null
     private var auctionLastModified: String? = null
 
-    fun getAuctionItems(): AuctionHouseResponse {
+    fun getAuctionItems(): List<Auction> {
         val token: AuthTokenResponse = blizzardOauthClient.getToken()
         val headers: HttpHeaders = HttpHeaders().also { header ->
             header.set("Authorization", "Bearer ${token.accessToken}")
@@ -38,16 +41,18 @@ class AuctionClient(
                 if (lastModifiedTime != null) {
                     this.auctionLastModified = lastModifiedTime
                 }
-                return body
+                val lastModifiedLocalDateTime = lastModifiedTime?.convertToLocalDateTime() ?: LocalDateTime.now()
+
+                return body.auctions.map { it.toEntity(lastModifiedLocalDateTime) }
             }
             HttpStatus.NOT_MODIFIED -> {
-                AuctionHouseResponse.NOT_MODIFIED
+                Auction.AUCTION_NOT_MODIFIED
             }
             else -> throw IllegalStateException()
         }
     }
 
-    fun getCommodityAuctionItems(): CommodityAuctionHouseResponse {
+    fun getCommodityAuctionItems(): List<Auction> {
         val token: AuthTokenResponse = blizzardOauthClient.getToken()
         val headers: HttpHeaders = HttpHeaders().also { header ->
             header.set("Authorization", "Bearer ${token.accessToken}")
@@ -64,10 +69,11 @@ class AuctionClient(
                 if (lastModifiedTime != null) {
                     this.commodityLastModified = lastModifiedTime
                 }
-                return body
+                val lastModifiedLocalDateTime = lastModifiedTime?.convertToLocalDateTime() ?: LocalDateTime.now()
+                return body.auctions.map { it.toEntity(lastModifiedLocalDateTime) }
             }
             HttpStatus.NOT_MODIFIED -> {
-                CommodityAuctionHouseResponse.NOT_MODIFIED
+                Auction.AUCTION_NOT_MODIFIED
             }
             else -> throw IllegalStateException()
         }
