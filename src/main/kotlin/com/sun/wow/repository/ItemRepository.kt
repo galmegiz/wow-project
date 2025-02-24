@@ -1,10 +1,10 @@
 package com.sun.wow.repository
 
-import com.sun.wow.entity.Auction
+import com.sun.wow.entity.Item
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface AuctionRepository : JpaRepository<Auction, Long>{
-    fun findTopByItemIdOrderByPrice(itemId: Long): Auction
+interface ItemRepository : JpaRepository<Item, Long> {
+    // fun findByNameOrNull(name: String): Item?
 }

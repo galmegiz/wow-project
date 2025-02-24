@@ -1,0 +1,1 @@
+val URL_SUFFIX = "?namespace=static-kr&locale=ko_KR"

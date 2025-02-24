@@ -7,10 +7,9 @@ import kotlinx.coroutines.runBlocking
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import java.util.concurrent.TimeUnit
-import kotlin.coroutines.coroutineContext
 
 @Service
-class AuctionService(
+class AuctionUpdateService(
     private val auctionRepository: AuctionRepository,
     private val auctionClient: AuctionClient
 ) {
@@ -28,5 +27,4 @@ class AuctionService(
             deferredResult.await()
             deferredResult2.await()
         }
-    }
-}
+    } }
