@@ -7,8 +7,10 @@ import com.sun.wow.service.ItemInfoService
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
+@ActiveProfiles("dev")
 class WowApplicationTests {
 
 	@Autowired
@@ -60,7 +62,7 @@ class WowApplicationTests {
 
 	@Test
 	fun itemTest() {
-		val auctions = itemClient.getItemInfoById(213613)
+		val auctions = itemClient.getItemInfoById(35)
 		println(auctions)
 
 	}
@@ -68,7 +70,7 @@ class WowApplicationTests {
 	@Test
 	fun itemInfoTest() {
 		auctionUpdateService.updateAuctionPeriodically()
-		val auctions = itemInfoService.getItemLowestPrice(213613)
+		val auctions = itemInfoService.getItemLowestPrice(35)
 		println(auctions)
 
 	}

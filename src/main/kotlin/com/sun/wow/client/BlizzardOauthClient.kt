@@ -1,6 +1,7 @@
 package com.sun.wow.client
 
 import com.sun.wow.client.dto.AuthTokenResponse
+import com.sun.wow.exception.BlizzardApiException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*
 import org.springframework.stereotype.Service
@@ -50,7 +51,7 @@ class BlizzardOauthClient(
 
         val token = when (response.statusCode) {
             HttpStatus.OK -> response.body ?: throw IllegalStateException()
-            else -> throw IllegalStateException()
+            else -> throw BlizzardApiException(response.statusCode)
         }
         return token
     }

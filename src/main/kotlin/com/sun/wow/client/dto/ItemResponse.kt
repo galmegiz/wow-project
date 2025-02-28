@@ -1,6 +1,8 @@
 package com.sun.wow.client.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonSetter
+import com.fasterxml.jackson.annotation.Nulls
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
@@ -21,6 +23,7 @@ data class ItemResponse(
     val isEquippable: Boolean,
     @get:JsonProperty("is_stackable")
     val isStackable: Boolean,
+    @get:JsonSetter(nulls = Nulls.AS_EMPTY)
     val description: String,
     @get:JsonDeserialize(using = IdDeserializer::class)
     @get:JsonProperty("media")
@@ -37,6 +40,26 @@ data class ItemResponse(
     @get:JsonProperty("inventory_type")
     val inventoryType: String
 ) {
+    companion object {
+        fun createUnknownItemResponse(itemId: Long): ItemResponse {
+            return ItemResponse(
+                itemId,
+                name = "UNKNOWN",
+                level = -1,
+                purchasePrice = Copper(0),
+                sellPrice = Copper(0),
+                isEquippable = false,
+                isStackable = false,
+                description = "",
+                mediaId = -1,
+                quality = "UNKNOWN",
+                itemClassId = -1,
+                itemSubClassId = -1,
+                inventoryType = "UNKNOWN"
+            )
+        }
+    }
+
     fun toEntity(): Item {
         return Item(
             id = this.id,
@@ -47,7 +70,7 @@ data class ItemResponse(
             sellPrice = this.sellPrice,
             isEquippable = this.isEquippable,
             isStackable = this.isStackable,
-            description = this.description,
+            description = this.description ?: "",
             itemClassId = this.itemClassId,
             itemSubClassId = this.itemSubClassId,
             inventoryType = this.inventoryType

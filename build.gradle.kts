@@ -43,6 +43,14 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3")
 
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+	implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
+
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-aop")
+	runtimeOnly("com.mysql:mysql-connector-j")
+	implementation("com.opencsv:opencsv:5.7.1")
+
 }
 
 kotlin {

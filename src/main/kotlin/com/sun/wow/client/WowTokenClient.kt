@@ -3,6 +3,7 @@ package com.sun.wow.client
 import com.sun.wow.client.dto.AuthTokenResponse
 import com.sun.wow.client.dto.WowTokenResponse
 import com.sun.wow.entity.WowToken
+import com.sun.wow.exception.BlizzardApiException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*
 import org.springframework.stereotype.Service
@@ -31,7 +32,7 @@ class WowTokenClient(
                 WowToken(resBody.lastUpdateTimeStamp, resBody.price)
             }
 
-            else -> throw IllegalStateException()
+            else -> throw BlizzardApiException(response.statusCode)
         }
     }
 }

@@ -4,6 +4,7 @@ import com.sun.wow.client.dto.AuctionHouseResponse
 import com.sun.wow.client.dto.AuthTokenResponse
 import com.sun.wow.client.dto.CommodityAuctionHouseResponse
 import com.sun.wow.entity.Auction
+import com.sun.wow.exception.BlizzardApiException
 import com.sun.wow.util.convertToLocalDateTime
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*
@@ -48,7 +49,7 @@ class AuctionClient(
             HttpStatus.NOT_MODIFIED -> {
                 Auction.AUCTION_NOT_MODIFIED
             }
-            else -> throw IllegalStateException()
+            else -> throw BlizzardApiException(response.statusCode)
         }
     }
 
@@ -75,7 +76,7 @@ class AuctionClient(
             HttpStatus.NOT_MODIFIED -> {
                 Auction.AUCTION_NOT_MODIFIED
             }
-            else -> throw IllegalStateException()
+            else -> throw BlizzardApiException(response.statusCode)
         }
     }
 }

@@ -3,6 +3,7 @@ package com.sun.wow.client
 import com.sun.wow.client.dto.AuthTokenResponse
 import com.sun.wow.client.dto.Realm
 import com.sun.wow.client.dto.WowRealmResponse
+import com.sun.wow.exception.BlizzardApiException
 import ko_KR
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.*
@@ -28,7 +29,7 @@ class RealmClient(
         val response: ResponseEntity<WowRealmResponse> = restTemplate.exchange<WowRealmResponse>(realmUrl, HttpMethod.GET, entity)
         return when (response.statusCode) {
             HttpStatus.OK -> response.body ?: throw IllegalStateException()
-            else -> throw IllegalStateException()
+            else -> throw BlizzardApiException(response.statusCode)
         }
     }
 
